@@ -57,6 +57,7 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # Convert y to a factor vector with descriptive activity labels.
   # IMPORTANT: THIS DOES NOT REORDER y!
   y <- cut(y$V1, nrow(a.labels), labels = a.labels$V2)
+  # convert to data.table to keep using the same syntax everywhere
   y <- as.data.table(y)
   # Nevertheless I am not sure whether that's the best solution.
   # Correct me if you know a better solution!
@@ -68,6 +69,7 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # Thus I have to use read.table and convert to data.table.
   # If you know how to read this file using fread, please tell me!
   x <- read.table(sprintf("%s/X_%s.txt", data.set, data.set))
+  # convert to data.table to keep using the same syntax everywhere
   x <- as.data.table(x)
   
   # Now let's get rid of unneeded columns
@@ -82,7 +84,8 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # Finally set column names
   setnames(x, names(x), v.names$V2)
   
-  # Ok, we are ready to merge everything using cbind and return
+  # Ok, we are ready to merge everything using cbind, convert to data.table
+  # and return the resulting data.table
   as.data.table(cbind(y, s, x))
 }
 # Load files and do the magic.
