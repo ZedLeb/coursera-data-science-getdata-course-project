@@ -41,6 +41,6 @@ I've processed the data in a slightly different order to the task and using **da
 1. Loaded **activity_labels.txt** file
 2. Loaded **features.txt**, selected 66 features, which include **-mean()** and **-std()** in their names and slightly processed the names. Namely removed "()" and replaced "-" with ".". These names a quite informative and can be easily used for referencing columns.
 3. Next I defined a function, which accepts either "test" or "train" as parameter, loads appropriate data and does steps 1-4 from the task. Loads relevant subjects file. Loads relevant activity file. Replaces activity IDs with activity labels. Reads relevant X-file. Drops irrelevant columns and renames columns with names prepared in step 2. Then it cbinds 3 pieces of data together and returns it.
-4. After running my function for "train" and "test" data I have two data.tables. Which I then rbind together, group by activity and subject columns and calculate means for all the rest of the columns within each group.
+4. After running my function for "train" and "test" data I have two data.tables. Which I then rbind together, group by activity and subject, and calculate means for each of the rest of columns within each group.
 
 Comments and a couple readability luxuries aside it took only 22 lines of R code!
