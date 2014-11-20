@@ -30,4 +30,4 @@ Good luck!
 
 [run_analysis.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code with all the steps performed with the data and comments.
 
-[tidydata.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/tidydata.txt) - comma separated values file with the final tidy data set.
+[tidydata.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata.txt) - comma separated values file with the final tidy data set.
