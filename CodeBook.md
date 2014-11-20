@@ -25,13 +25,13 @@ You should create one R script called run_analysis.R that does the following.
 ### 1. What data are we asked to process?
 The task says: "*extract only the measurements on the mean and standard deviation for each measurement*". This means that we should disregard raw accelerometer and gyroscope data stored in **Inertial Signals** folders and should extract relevant features from **X_test.txt** and **X_train.txt** files.
 
-Reading through **features_info.txt** file we discover that these are ultra short descriptions to the 561 columns contained in the **X_test.txt** and **X_train.txt** files. There are 3 types of features that are of interest for us:
+Reading through **features.txt** file we discover that these are ultra short descriptions to the 561 columns contained in the **X_test.txt** and **X_train.txt** files. There are 3 types of features that are of interest for us:
 
  1. 66 features which have **-mean()** and **-std()** in them.
  2. 6 features that look like **angle(tBodyAccJerkMean),gravityMean)**
  3. 13 features that look like **fBodyAccJerk-meanFreq()-X**
 
-The task does not clearly state which of these we should use. I believe that we should only extract the 66 features, which include **-mean()** and **-std()** in their names.
+The task does not clearly state which of these we should use. Based on the information provided in the **features_info.txt** file I believe that we should only extract the 66 features, which include **-mean()** and **-std()** in their names.
 
 ### 2. What was done to the data?
 The original data was not changed. New file named **tidydata.txt** with new data.table was created in the root directory of the original data.
