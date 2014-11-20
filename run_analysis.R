@@ -10,6 +10,7 @@ library("data.table")
 
 ##############################################################################
 # THE SCRIPT ASSUMES THAT WORKING DIRECTORY IS SET TO THE ROOT OF DATA FILES #
+# AND ENDS WITH A SLASH                                                      #
 ##############################################################################
 
 # Load activity labels. We will need them to fullfil the following requirement:
@@ -54,9 +55,12 @@ ReadFilesAndMerge <- function(data.set = "train") {
   y <- fread(sprintf("%s/Y_%s.txt", data.set, data.set))
   
   # Convert y to a factor vector with descriptive activity labels.
-  # I am not sure that's the best way of doing that.
+  # IMPORTANT: THIS DOES NOT REORDER y!
+  y <- cut(y$V1, nrow(a.labels), labels = a.labels$V2)
+  y <- as.data.table(y)
+  # Nevertheless I am not sure whether that's the best solution.
   # Correct me if you know a better solution!
-  y <- as.data.table(cut(y$V1, nrow(a.labels), labels = a.labels$V2))
+  
   # Set sensible column name.
   setnames(y, names(y), c("Activity"))
     
