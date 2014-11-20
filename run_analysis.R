@@ -8,28 +8,19 @@
 # and the wiki here https://github.com/Rdatatable/data.table/wiki
 library("data.table")
 
-# The following is a quirky way to get the script's path when the script is
-# started using source(script.R) command. This will fail when the script is
-# run in console thus I am wrapping it in a try() function.
-dir <- try(dirname(sys.frame(1)$ofile), silent = T)
-# In the case when dirname(sys.frame(1)$ofile) failes, fallback to working directory.
-# If you know a better way of doing that - tell me!
-if (class(.Last.value) == "try-error") {
-  dir <- getwd()
-  message("Using working dir: ", dir)
-}
-# This is our rawdata sub-directory
-dir.data <- sprintf("%s/rawdata", dir)
+##############################################################################
+# THE SCRIPT ASSUMES THAT WORKING DIRECTORY IS SET TO THE ROOT OF DATA FILES #
+##############################################################################
 
 # Load activity labels. We will need them to fullfil the following requirement:
 # 3. Uses descriptive activity names to name the activities in the data set
-a.labels <- fread(sprintf("%s/activity_labels.txt", dir.data))
+a.labels <- fread("activity_labels.txt")
 
 # Load variable(column) names. We will need them to fullfill the following:
 # 2. Extracts only the measurements on the mean and standard deviation for each
 #    measurement.
 # 4. Appropriately labels the data set with descriptive variable names. 
-v.names <- fread(sprintf("%s/features.txt", dir.data))
+v.names <- fread("features.txt")
 
 # Now we need to decide which columns we must keep. We obviously must keep
 # columns with -mean() and -std(). There are also columns with -meanFreq() and
@@ -53,14 +44,14 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # labeled factor, filters out unneeded columns and merges everything together.
   
   # Subject IDs for each observation
-  s <- fread(sprintf("%s/%s/subject_%s.txt", dir.data, data.set, data.set))
+  s <- fread(sprintf("%s/subject_%s.txt", data.set, data.set))
   # Set sensible column name. setnames(x, names(x), v.names$V2) is faster 
   # than names(x) <- v.names$V2 because the latter copies the table, while
   # the former does its changes by reference.
   setnames(s, names(s), c("Subject"))
   
   # Activity IDs for each observation
-  y <- fread(sprintf("%s/%s/Y_%s.txt", dir.data, data.set, data.set))
+  y <- fread(sprintf("%s/Y_%s.txt", data.set, data.set))
   
   # Convert y to a factor vector with descriptive activity labels.
   # I am not sure that's the best way of doing that.
@@ -72,7 +63,7 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # fread is a very fast data.table's file reader, but it chokes on this file.
   # Thus I have to use read.table and convert to data.table.
   # If you know how to read this file using fread, please tell me!
-  x <- read.table(sprintf("%s/%s/X_%s.txt", dir.data, data.set, data.set))
+  x <- read.table(sprintf("%s/X_%s.txt", data.set, data.set))
   x <- as.data.table(x)
   
   # Now let's get rid of unneeded columns
@@ -83,7 +74,7 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # names and can type them in, but when column names have to be provided 
   # programmatically data.table gets tricky. "with=FALSE" is important here.
   # See datatable-faq.pdf Q:1.5
-  x <- x[, cols, with=FALSE]
+  x <- x[, cols, with=F]
   # Finally set column names
   setnames(x, names(x), v.names$V2)
   
@@ -110,9 +101,8 @@ setkey(data, Activity, Subject)
 # .SD represents the Subset of Data for all the columns not included in the groups.
 tidydata <- data[, lapply(.SD, mean), by = .(Activity, Subject)]
 
-# Now let's write it to disk. I don't think row numbers are needed, hence the
-# row.names = F parameter.
-write.csv(tidydata, file = "tidydata.txt", row.names = F)
+# Now let's write it to disk. 
+write.table(tidydata, file = "tidydata.txt", row.names = F)
 
 # That's it! :-)
 # Comments are very welcome!
