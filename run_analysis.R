@@ -53,14 +53,8 @@ ReadFilesAndMerge <- function(data.set = "train") {
   
   # Activity IDs for each observation
   y <- fread(sprintf("%s/Y_%s.txt", data.set, data.set))
-  
-  # Convert y to a factor vector with descriptive activity labels.
-  # IMPORTANT: THIS DOES NOT REORDER y!
-  y <- cut(y$V1, nrow(a.labels), labels = a.labels$V2)
-  # convert to data.table to keep using the same syntax everywhere
-  y <- as.data.table(y)
-  # Nevertheless I am not sure whether that's the best solution.
-  # Correct me if you know a better solution!
+  # Replace activity IDs with descriptive activity labels.
+  y <- y[, a.labels[V1, V2]]
   
   # Set sensible column name.
   setnames(y, names(y), c("Activity"))
