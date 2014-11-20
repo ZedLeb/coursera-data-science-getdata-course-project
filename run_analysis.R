@@ -10,7 +10,7 @@ library("data.table")
 
 # The following is a quirky way to get the script's path when the script is
 # started using source(script.R) command. This will fail when the script is
-# ran in console thus I am wrapping it in a try() function.
+# run in console thus I am wrapping it in a try() function.
 dir <- try(dirname(sys.frame(1)$ofile), silent = T)
 # In the case when dirname(sys.frame(1)$ofile) failes, fallback to working directory.
 # If you know a better way of doing that - tell me!
@@ -56,7 +56,7 @@ ReadFilesAndMerge <- function(data.set = "train") {
   s <- fread(sprintf("%s/%s/subject_%s.txt", dir.data, data.set, data.set))
   # Set sensible column name. setnames(x, names(x), v.names$V2) is faster 
   # than names(x) <- v.names$V2 because the latter copies the table, while
-  # the former does it's changes by reference.
+  # the former does its changes by reference.
   setnames(s, names(s), c("Subject"))
   
   # Activity IDs for each observation
