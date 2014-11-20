@@ -26,7 +26,7 @@ Good luck!
 
 ## The Result ##
 
-[CookBook.md](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/CookBook.md) - detailed description of the data and steps taken to build it from the task data set.
+[CodeBook.md](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/CodeBook.md) - detailed description of the data and steps taken to build it from the task data set.
 
 [run_analysis.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code with all the steps performed with the data and comments.
 
