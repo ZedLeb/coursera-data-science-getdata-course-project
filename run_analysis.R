@@ -52,9 +52,29 @@ ReadFilesAndMerge <- function(data.set = "train") {
   setnames(s, names(s), c("Subject"))
   
   # Activity IDs for each observation
-  y <- fread(sprintf("%s/Y_%s.txt", data.set, data.set))
+  y <- fread(sprintf("%s/y_%s.txt", data.set, data.set))
+  
   # Replace activity IDs with descriptive activity labels.
-  y <- y[, a.labels[V1, V2]]
+  # I see two possible solutions here. We could simply do
+  # y <- a.labels[y$V1, V2]
+  # This takes advantage of the fact, what activity IDs are in order from 1 to 6
+  # in Y file and labels are in the same order in activity_labels.txt file.
+  # But IMHO this solution is not the best, since by replacing numbers with
+  # strings we lose their relative ordering. It doesn't matter much here, but
+  # if ids encoded relative order from the least physical strain to the highest
+  # physical strain, replacing them with bare labels would lose meaningful
+  # ordering information. So the ideal solution should replace activity IDs
+  # with a factor variable, where labels will both be informative and keep the
+  # relative ordering of each type of the activities.
+  # So here I convert y to a factor vector with descriptive activity labels.
+  y <- cut(y$V1, breaks = nrow(a.labels), labels = a.labels$V2, ordered_result = T)
+  # This divides all y$V1 values in 6 equal intervals (nrow(a.labels) == 6)
+  # As we have only 6 distinct values there, it will be a perfect split between
+  # them. Then it gives a label for each of these intervals.
+  # Do you know a better solution? Please, leave your comments! Ty.
+  
+  # Convert to data.table just to keep using the same syntax everywhere
+  y <- as.data.table(y)
   
   # Set sensible column name.
   setnames(y, names(y), c("Activity"))
