@@ -31,7 +31,59 @@ Reading through **features.txt** file we discover that these are ultra short des
  2. 6 features that look like **angle(tBodyAccJerkMean),gravityMean)**
  3. 13 features that look like **fBodyAccJerk-meanFreq()-X**
 
-The task does not clearly state which of these we should use. Based on the information provided in the **features_info.txt** file I believe that we should only extract the 66 features, which include **-mean()** and **-std()** in their names.
+The task does not clearly state which of these we should use.
+Let's read the **features_info.txt** file:
+
+> These signals were used to estimate variables of the feature vector for each pattern:  
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+>
+> tBodyAcc-XYZ<br/>
+> tGravityAcc-XYZ<br/>
+> tBodyAccJerk-XYZ<br/>
+> tBodyGyro-XYZ<br/>
+> tBodyGyroJerk-XYZ<br/>
+> tBodyAccMag<br/>
+> tGravityAccMag<br/>
+> tBodyAccJerkMag<br/>
+> tBodyGyroMag<br/>
+> tBodyGyroJerkMag<br/>
+> fBodyAcc-XYZ<br/>
+> fBodyAccJerk-XYZ<br/>
+> fBodyGyro-XYZ<br/>
+> fBodyAccMag<br/>
+> fBodyAccJerkMag<br/>
+> fBodyGyroMag<br/>
+> fBodyGyroJerkMag<br/>
+>
+>The set of variables that were estimated from these signals are: 
+>
+>mean(): Mean value<br/>
+>std(): Standard deviation<br/>
+>mad(): Median absolute deviation<br/>
+>max(): Largest value in array<br/>
+>min(): Smallest value in array<br/>
+>sma(): Signal magnitude area<br/>
+>energy(): Energy measure. Sum of the squares divided by the number of values.<br/>
+>iqr(): Interquartile range<br/>
+>entropy(): Signal entropy<br/>
+>arCoeff(): Autorregresion coefficients with Burg order equal to 4<br/>
+>correlation(): correlation coefficient between two signals<br/>
+>maxInds(): index of the frequency component with largest magnitude<br/>
+>meanFreq(): Weighted average of the frequency components to obtain a mean frequency<br/>
+>skewness(): skewness of the frequency domain signal<br/>
+>kurtosis(): kurtosis of the frequency domain signal<br/>
+>bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.<br/>
+>angle(): Angle between to vectors.<br/>
+>
+>Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
+>
+>gravityMean<br/>
+>tBodyAccMean<br/>
+>tBodyAccJerkMean<br/>
+>tBodyGyroMean<br/>
+>tBodyGyroJerkMean<br/>
+
+In my opinion it is now very obvious that we should only extract the 66 features, which include **-mean()** and **-std()** in their names, since **meanFreq()** is a different kind of variable for the same signal, and while **angles** do use mean values of signals, they are not themselves means or standard deviations of signals.
 
 ### 2. What was done to the data?
 The original data was not changed. New file named **tidydata.txt** with new data.table was created in the root directory of the original data.
