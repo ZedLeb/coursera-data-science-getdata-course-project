@@ -55,23 +55,26 @@ ReadFilesAndMerge <- function(data.set = "train") {
   y <- fread(sprintf("%s/y_%s.txt", data.set, data.set))
   
   # Replace activity IDs with descriptive activity labels.
-  # I see two possible solutions here. We could simply do
+  # In our case, when items in a.labels are already correctly ordered from 1 to 6
+  # and ids in y are also from 1 to 6, we could disregard a.labels$V1 column and
+  # just do left_join by row numbers in a.labels
   # y <- a.labels[y$V1, V2]
-  # This takes advantage of the fact, what activity IDs are in order from 1 to 6
-  # in Y file and labels are in the same order in activity_labels.txt file.
-  # But IMHO this solution is not the best, since by replacing numbers with
+  # This takes rows from a.labels according to numbers in y$V1. This would not
+  # work if ids were not consecutively numbered from 1 to 6.
+  # In case of arbitrary ids, and when using data.tables, the correct way would be
+  # y <- a.labels[V1 == y$V1, V2]
+  # But IMHO both solutions are not ideal, since by replacing numbers with
   # strings we lose their relative ordering. It doesn't matter much here, but
-  # if ids encoded relative order from the least physical strain to the highest
-  # physical strain, replacing them with bare labels would lose meaningful
-  # ordering information. So the ideal solution should replace activity IDs
-  # with a factor variable, where labels will both be informative and keep the
-  # relative ordering of each type of the activities.
+  # if ids in Y where not just dumb numbers, but encoded relative order from the
+  # least physical strain to the highest physical strain, replacing them with
+  # bare labels would lose meaningful ordering information. So the ideal solution
+  # should replace activity IDs with an ordered factor variable, where labels 
+  # will both be informative and keep the relative ordering of activities.
   # So here I convert y to a factor vector with descriptive activity labels.
   y <- cut(y$V1, breaks = nrow(a.labels), labels = a.labels$V2, ordered_result = T)
   # This divides all y$V1 values in 6 equal intervals (nrow(a.labels) == 6)
-  # As we have only 6 distinct values there, it will be a perfect split between
-  # them. Then it gives a label for each of these intervals.
-  # Do you know a better solution? Please, leave your comments! Ty.
+  # As we have only 6 consequtive values there, it will be a perfect split 
+  # between them. Then it gives a label for each of these intervals.
   
   # Convert to data.table just to keep using the same syntax everywhere
   y <- as.data.table(y)
