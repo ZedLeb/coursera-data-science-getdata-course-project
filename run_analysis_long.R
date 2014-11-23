@@ -157,10 +157,18 @@ t.long$Feature <- v[, 2]
 t.long$Axis <- v[, 3]
 # drop "variable" column
 t.long[, variable := NULL]
-# rename "value" to "Value"
-setnames(t.long, c("value"), c("Value"))
+# Now, since all our Signals,Axis groups have exactly two measures, which are 
+# mean and std, it's not good to store them in one column. We should unmelt them
+# to two separate Mean and Std columns.
+s <- t.long[Feature=="std", value]
+t.long <- t.long[Feature=="mean"]
+t.long[, Std:=s]
+# rename "value" to "Mean"
+setnames(t.long, c("value"), c("Mean"))
+# drop Feature column
+t.long[, Feature := NULL]
 # reorder columns
-setcolorder(t.long, neworder = c("Activity", "Subject", "Signal", "Feature", "Axis", "Value"))
+setcolorder(t.long, neworder = c("Activity", "Subject", "Signal", "Axis", "Mean", "Std"))
 # OK, now let's write it to "tidydata-long.txt"
 write.table(t.long, file = "tidydata-long.txt", row.names = F)
 # The End
