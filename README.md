@@ -31,7 +31,7 @@ Good luck!
 
 ## The Result ##
 
-[CodeBook.md](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/CodeBook.md) - includes detailed analysis of the data, the task, the steps taken to transform the data and wheather to leave it wide or narrow for more tidiness.
+[CodeBook.md](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/CodeBook.md) - includes detailed analysis of the data, the task, the steps taken to transform the data and weather to leave it wide or narrow down for more tidiness.
 
 [run_analysis.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code with extensive comments.
 
