@@ -108,3 +108,16 @@ More over, as the swirl assignment on **dplyr** and **tidyr** is left for the 4t
 And finally instructions for markers/evaluators explicitely state that "*Either a* **wide** *or a* **long** *form of the data is acceptable if it meets the tidy data principles of week 1 (Each variable you measure should be in one column, Each different observation of that variable should be in a different row)*"
 
 So for this particular assignment I decided to leave tidy data **wide**.
+
+### 4. The long narrow tidy data
+In a last minute dash I decided to write the code, which would convert my wide tidy data into a long narrow format.
+
+The long tidy data can be located in *tidydata-long.txt* file.
+
+It includes the following columns:
+- **Activity** - one of (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
+- **Subject** - an ID of a person from 1 to 30
+- **Signal** - one of (tBodyAcc, tGravityAcc, tBodyAccJerk, tBodyGyro, tBodyGyroJerk, tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag, fBodyAcc, fBodyAccJerk, fBodyGyro, fBodyAccMag, fBodyBodyAccJerkMag, fBodyBodyGyroMag, fBodyBodyGyroJerkMag)
+- **Feature** - our extracted features, one of (mean, std)
+- **Axis** - an axis of the Signal. Takes 4 values, X, Y and Z, plus empty string "" for Signals, which are not linked to any axis
+- **Value** - our target value, which is a mean of all measurements for each "Activity, Subject, Signal, Feature, Axis" group loaded from **X_train.txt** and **X_test.txt** files.

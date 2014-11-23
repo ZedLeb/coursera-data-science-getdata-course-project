@@ -36,3 +36,5 @@ Good luck!
 [run_analysis.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code with extensive comments.
 
 [tidydata.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata.txt) - the final tidy data set outputed with **write.table(tidydata, file = "tidydata.txt", row.names = F)** command.
+
+[tidydata-long.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata-long.txt) - the final tidy data set converted according to long narrow tidy data principles outputed with **write.table(t.long, file = "tidydata-long.txt", row.names = F)** command.
