@@ -12,6 +12,13 @@ library("data.table")
 # THE SCRIPT ASSUMES THAT WORKING DIRECTORY IS SET TO THE ROOT OF DATA FILES #
 # AND ENDS WITH A SLASH                                                      #
 ##############################################################################
+# Set working directory appropriately!!!
+# setwd("D:\\GDrive\\GitHub\\coursera-data-science-getdata-course-project\\rawdata")
+##############################################################################
+# Check whether working directory contains activity_labels.txt file, which
+# means it is the root directory of our data.
+if (!file.exists("activity_labels.txt"))
+  stop("Could not find activity_labels.txt file.\nPlease, set working directory to the root of the data folder!")
 
 # Load activity labels. We will need them to fullfil the following requirement:
 # 3. Uses descriptive activity names to name the activities in the data set
@@ -33,7 +40,9 @@ v.names <- fread("features.txt")
 v.names <- v.names[grep("(-mean\\(\\))|(-std\\(\\))", V2, perl = T)]
 # We are down to 66 columns. Now let's cleanup these names a bit, so that it's
 # easier to use them in the code for anybody using our data in the future.
-# Get rid of parenthesis
+# Get rid of parenthesis.
+# This is data.table syntax and it does update the values! It probably does not
+# work the same way in data.frame.
 v.names[, V2:=gsub("\\(\\)", "", V2)]
 # Replace "-" with "."
 v.names[, V2:=gsub("-", ".", V2)]
@@ -58,11 +67,15 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # In our case, when items in a.labels are already correctly ordered from 1 to 6
   # and ids in y are also from 1 to 6, we could disregard a.labels$V1 column and
   # just do left_join by row numbers in a.labels
+  #
   # y <- a.labels[y$V1, V2]
+  #
   # This takes rows from a.labels according to numbers in y$V1. This would not
   # work if ids were not consecutively numbered from 1 to 6.
   # In case of arbitrary ids, and when using data.tables, the correct way would be
+  #
   # y <- a.labels[V1 == y$V1, V2]
+  #
   # But IMHO both solutions are not ideal, since by replacing numbers with
   # strings we lose their relative ordering. It doesn't matter much here, but
   # if ids in Y where not just dumb numbers, but encoded relative order from the
@@ -70,11 +83,8 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # bare labels would lose meaningful ordering information. So the ideal solution
   # should replace activity IDs with an ordered factor variable, where labels 
   # will both be informative and keep the relative ordering of activities.
-  # So here I convert y to a factor vector with descriptive activity labels.
-  y <- cut(y$V1, breaks = nrow(a.labels), labels = a.labels$V2, ordered_result = T)
-  # This divides all y$V1 values in 6 equal intervals (nrow(a.labels) == 6)
-  # As we have only 6 consequtive values there, it will be a perfect split 
-  # between them. Then it gives a label for each of these intervals.
+  # Thus here I convert y to a factor vector with descriptive activity labels.
+  y <- factor(y$V1, a.labels$V1, a.labels$V2, ordered = T)
   
   # Convert to data.table just to keep using the same syntax everywhere
   y <- as.data.table(y)
