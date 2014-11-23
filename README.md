@@ -37,6 +37,6 @@ Good luck!
 
 [tidydata.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata.txt) - the final tidy data set outputed with **write.table(tidydata, file = "tidydata.txt", row.names = F)** command.
 
-[run_analysis_long.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code, which also converts the data from wide to long narrow tidy data. Contains extensive comments.
+[run_analysis_long.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis_long.R) - R code, which also converts the data from wide to long narrow tidy data. Contains extensive comments.
 
 [tidydata-long.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata-long.txt) - the final tidy data set converted according to long narrow tidy data principles outputed with **write.table(t.long, file = "tidydata-long.txt", row.names = F)** command.
