@@ -110,7 +110,7 @@ And finally instructions for markers/evaluators explicitely state that "*Either 
 So for this particular assignment I decided to leave tidy data **wide**.
 
 ### 4. The long narrow tidy data
-In a last minute dash I decided to write the code, which would convert my wide tidy data into a long narrow format.
+In a last minute dash I decided to write the code, which would convert my wide tidy data into a long narrow format. For the long narrow tidy data format we must have only two columns/variables for values - one for means of Mean() measurements and another for means of Std() measurements.
 
 The long tidy data can be located in *tidydata-long.txt* file.
 

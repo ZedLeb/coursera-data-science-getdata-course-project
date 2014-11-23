@@ -158,8 +158,9 @@ t.long$Axis <- v[, 3]
 # drop "variable" column
 t.long[, variable := NULL]
 # Now, since all our Signals,Axis groups have exactly two measures, which are 
-# mean and std, it's not good to store them in one column. We should unmelt them
-# to two separate Mean and Std columns.
+# mean and std, and since the data is considered messy if we store more than one
+# distinct value in one column/variable. We should unmelt them to two separate 
+# Mean and Std columns.
 s <- t.long[Feature=="std", value]
 t.long <- t.long[Feature=="mean"]
 t.long[, Std:=s]
