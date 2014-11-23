@@ -123,5 +123,6 @@ It includes the following columns:
 - **Jerk** - a logical variable denoting a Jerk signal
 - **Magnitude** - a logical variable denoting a Magnitude signal
 - **Axis** - an axis of the Signal. Takes 4 values, X, Y and Z, plus empty string "" for Signals, which are not linked to any axis
-- **Mean** - that is our first target value, which is a mean of all mean() measurements for each "Activity, Subject, Signal, Axis" group loaded from **X_train.txt** and **X_test.txt** files.
-- **Std** - that is our second target value, which is a mean of all std() measurements for each "Activity, Subject, Signal, Feature, Axis" group loaded from **X_train.txt** and **X_test.txt** files.
+- **Mean** - that is our first target value, which is a mean of all mean() measurements for each "Activity, Subject, Unit, Device, Originator, Jerk, Magnitude, Axis" group loaded from **X_train.txt** and **X_test.txt** files.
+- **Std** - that is our second target value, which is a mean of all std() measurements for each "Activity, Subject, Unit, Device, Originator, Jerk, Magnitude, Axis" group loaded from **X_train.txt** and **X_test.txt** files.
+
