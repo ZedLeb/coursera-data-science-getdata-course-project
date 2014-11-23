@@ -31,8 +31,8 @@ Good luck!
 
 ## The Result ##
 
-[CodeBook.md](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/CodeBook.md) - detailed description of the data and steps taken to build it from the task data set.
+[CodeBook.md](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/CodeBook.md) - includes detailed analysis of the data, the task, the steps taken to transform the data and wheather to leave it wide or narrow for more tidiness.
 
-[run_analysis.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code with all the steps performed with the data and comments.
+[run_analysis.R](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/run_analysis.R) - R code with extensive comments.
 
-[tidydata.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata.txt) - comma separated values file with the final tidy data set.
+[tidydata.txt](https://github.com/a-vikulin/coursera-data-science-getdata-course-project/blob/master/rawdata/tidydata.txt) - the final tidy data set outputed with **write.table(tidydata, file = "tidydata.txt", row.names = F)** command.

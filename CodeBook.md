@@ -95,6 +95,16 @@ I've processed the data in a slightly different order to the task and using **da
 3. Next I defined a function, which accepts either "test" or "train" as parameter, loads appropriate data and does steps 1-4 from the task. Loads relevant subjects file. Loads relevant activity file. Replaces activity IDs with an activity labels factor variable. Reads relevant X-file. Drops irrelevant columns and renames columns with names prepared in step 2. Then it cbinds 3 pieces of data together and returns it.
 4. After running my function for the "train" and "test" data I have two data.tables. Which I then rbind together, group by activity and subject, and calculate means for each of the rest of columns within each group.
 
-My R script is extensively commented. Feel free to examine comments there.
+So finally we have a table with 68 columns. The first two columns are Activity and Subject ids and serve as table's key. The rest of the columns are 66 variables, which were calculated as average(mean) on mean and std variables for each signal in the original data set as described above and in the **features_info.txt** file.
 
-Comments and a couple readability luxuries aside it took only 22 lines of R code!
+My R script is extensively commented.
+Please, examine comments there.
+
+### 3. Wide or narrow tidy data?
+I've carefully read through all the discussion in Course forum [Tidy data and the assignment](https://class.coursera.org/getdata-009/forum/thread?thread_id=192) on whether to narrow the data, making it more tidy, or to leave it wide. I am still not convinced that narrowing this particular data set will make it any easier to work with for any particular purpose. More so because the resulting data doesn't seem to have any meaningfull purpose except to test our ability to manipulate data in R.
+
+More over, as the swirl assignment on **dplyr** and **tidyr** is left for the 4th week, it implies that narrowing tidy data was not intended for this Course Project.
+
+And finally instructions for markers/evaluators explicitely state that **Either a wide or a long form of the data is acceptable if it meets the tidy data principles of week 1 (Each variable you measure should be in one column, Each different observation of that variable should be in a different row)**
+
+So for this particular assignment I decided to leave tidy data **wide**.
