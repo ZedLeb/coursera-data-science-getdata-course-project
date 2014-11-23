@@ -105,6 +105,6 @@ I've carefully read through all the discussion in Course forum [Tidy data and th
 
 More over, as the swirl assignment on **dplyr** and **tidyr** is left for the 4th week, it implies that narrowing tidy data was not intended for this Course Project.
 
-And finally instructions for markers/evaluators explicitely state that *Either a **wide** or a **long** form of the data is acceptable if it meets the tidy data principles of week 1 (Each variable you measure should be in one column, Each different observation of that variable should be in a different row)*
+And finally instructions for markers/evaluators explicitely state that "*Either a* **wide** *or a* **long** *form of the data is acceptable if it meets the tidy data principles of week 1 (Each variable you measure should be in one column, Each different observation of that variable should be in a different row)*"
 
 So for this particular assignment I decided to leave tidy data **wide**.
