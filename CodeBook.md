@@ -117,7 +117,11 @@ The long tidy data can be located in *tidydata-long.txt* file.
 It includes the following columns:
 - **Activity** - one of (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
 - **Subject** - an ID of a person from 1 to 30
-- **Signal** - one of (tBodyAcc, tGravityAcc, tBodyAccJerk, tBodyGyro, tBodyGyroJerk, tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag, fBodyAcc, fBodyAccJerk, fBodyGyro, fBodyAccMag, fBodyBodyAccJerkMag, fBodyBodyGyroMag, fBodyBodyGyroJerkMag)
+- **Unit** - this is the unit of measurement and according to feature_info.txt file it was encoded as letter "t" of "f", meaning time of frequency
+- **Device** - device of the signal -  Accelerometer or Gyroscope
+- **Originator** - Boby or Gravity
+- **Jerk** - a logical variable denoting a Jerk signal
+- **Magnitude** - a logical variable denoting a Magnitude signal
 - **Axis** - an axis of the Signal. Takes 4 values, X, Y and Z, plus empty string "" for Signals, which are not linked to any axis
 - **Mean** - that is our first target value, which is a mean of all mean() measurements for each "Activity, Subject, Signal, Axis" group loaded from **X_train.txt** and **X_test.txt** files.
 - **Std** - that is our second target value, which is a mean of all std() measurements for each "Activity, Subject, Signal, Feature, Axis" group loaded from **X_train.txt** and **X_test.txt** files.

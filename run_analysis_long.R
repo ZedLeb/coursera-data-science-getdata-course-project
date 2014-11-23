@@ -168,8 +168,30 @@ t.long[, Std:=s]
 setnames(t.long, c("value"), c("Mean"))
 # drop Feature column
 t.long[, Feature := NULL]
-# reorder columns
-setcolorder(t.long, neworder = c("Activity", "Subject", "Signal", "Axis", "Mean", "Std"))
+# But in fact that's not the end of the story!
+# They really want us to split the Signal value into many sub values:
+# 1) Unit of measurement (t denoting "time" and f denoting "frequency")
+t.long[, Unit:=ifelse(substr(Signal, 1, 1) == "t", "time", "freq")]
+# 2) Originator - Body or Gravity
+t.long[, Originator:=ifelse(substr(Signal, 2, 5) == "Body", "Body", "Gravity")]
+# 3) Device - Accelerator or Giroscope
+t.long[, Device:=ifelse(substr(Signal, 6, 9) == "Gyro", "Gyro", "Acc")]
+# 4) Jerk - TRUE or FALSE for if it's a Jerk signal
+t.long[, Jerk:=ifelse(grepl("Jerk", Signal, fixed = T), T, F)]
+# 5) Magnitude - TRUE or FALSE for if it's a measure of a magnitude of the signal
+t.long[, Magnitude:=ifelse(grepl("Mag", Signal, fixed = T), T, F)]
+# Now let's drop the Signal column and reorder the columns
+t.long[, Signal := NULL]
+setcolorder(t.long, neworder = c("Activity", 
+                                 "Subject", 
+                                 "Unit", 
+                                 "Device", 
+                                 "Originator", 
+                                 "Jerk", 
+                                 "Magnitude", 
+                                 "Axis", 
+                                 "Mean", 
+                                 "Std"))
 # OK, now let's write it to "tidydata-long.txt"
 write.table(t.long, file = "tidydata-long.txt", row.names = F)
 # The End
