@@ -43,9 +43,9 @@ v.names <- v.names[grep("(-mean\\(\\))|(-std\\(\\))", V2, perl = T)]
 # Get rid of parenthesis.
 # This is data.table syntax and it does update the values! It probably does not
 # work the same way in data.frame.
-v.names[, V2:=gsub("\\(\\)", "", V2)]
+v.names[, V2:=gsub("()", "", V2, fixed = T)]
 # Replace "-" with "."
-v.names[, V2:=gsub("-", ".", V2)]
+v.names[, V2:=gsub("-", ".", V2, fixed = T)]
 
 # Let's make a function, which reads and processes data from a training/testing 
 # subset.
@@ -168,13 +168,13 @@ t.long[, Std:=s]
 setnames(t.long, c("value"), c("Mean"))
 # drop Feature column
 t.long[, Feature := NULL]
-# But in fact that's not the end of the story!
-# They really want us to split the Signal value into many sub values:
+# But in fact that's not the end of the story! They really want us to go insane
+# and split the Signal value into many sub values:
 # 1) Unit of measurement (t denoting "time" and f denoting "frequency")
 t.long[, Unit:=ifelse(substr(Signal, 1, 1) == "t", "time", "freq")]
 # 2) Originator - Body or Gravity
 t.long[, Originator:=ifelse(substr(Signal, 2, 5) == "Body", "Body", "Gravity")]
-# 3) Device - Accelerator or Giroscope
+# 3) Device - Accelerator or Gyroscope
 t.long[, Device:=ifelse(substr(Signal, 6, 9) == "Gyro", "Gyro", "Acc")]
 # 4) Jerk - TRUE or FALSE for if it's a Jerk signal
 t.long[, Jerk:=ifelse(grepl("Jerk", Signal, fixed = T), T, F)]
