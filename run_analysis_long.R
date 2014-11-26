@@ -175,7 +175,7 @@ t.long[, Unit:=ifelse(substr(Signal, 1, 1) == "t", "time", "freq")]
 # 2) Originator - Body or Gravity
 t.long[, Originator:=ifelse(substr(Signal, 2, 5) == "Body", "Body", "Gravity")]
 # 3) Device - Accelerator or Gyroscope
-t.long[, Device:=ifelse(substr(Signal, 6, 9) == "Gyro", "Gyro", "Acc")]
+t.long[, Device:=ifelse(grepl("Gyro", Signal, fixed = T), "Gyro", "Acc")]
 # 4) Jerk - TRUE or FALSE for if it's a Jerk signal
 t.long[, Jerk:=ifelse(grepl("Jerk", Signal, fixed = T), T, F)]
 # 5) Magnitude - TRUE or FALSE for if it's a measure of a magnitude of the signal
