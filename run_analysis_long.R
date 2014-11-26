@@ -44,7 +44,7 @@ v.names <- v.names[grepl("(-mean\\(\\))|(-std\\(\\))", V2, perl = T)]
 # This is data.table syntax and it does update the values! It probably does not
 # work the same way in data.frame.
 v.names[, V2:=gsub("()", "", V2, fixed = T)]
-# Replace "-" with "."
+# Replace "-" with ".". This follows Google Style guide for variable naming.
 v.names[, V2:=gsub("-", ".", V2, fixed = T)]
 
 # Let's make a function, which reads and processes data from a training/testing 
