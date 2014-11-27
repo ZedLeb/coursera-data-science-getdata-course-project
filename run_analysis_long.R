@@ -37,7 +37,7 @@ v.names <- fread("features.txt")
 # "mean and standard deviation for each measurement", they are some additional
 # characteristics of these measurements. So I keep only -mean() and -std() columns.
 # "perl = T" param is for PCRE syntax, which is generally faster.
-v.names <- v.names[grepl("(-mean\\(\\))|(-std\\(\\))", V2, perl = T)]
+v.names <- v.names[grepl("-(mean|std)\\(\\)", V2, perl = T)]
 # We are down to 66 columns. Now let's cleanup these names a bit, so that it's
 # easier to use them in the code for anybody using our data in the future.
 # Get rid of parenthesis.
