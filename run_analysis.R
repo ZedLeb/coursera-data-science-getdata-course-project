@@ -10,7 +10,6 @@ library("data.table")
 
 ##############################################################################
 # THE SCRIPT ASSUMES THAT WORKING DIRECTORY IS SET TO THE ROOT OF DATA FILES #
-# AND ENDS WITH A SLASH                                                      #
 ##############################################################################
 # Set working directory appropriately!!!
 # setwd("D:\\GDrive\\GitHub\\coursera-data-science-getdata-course-project\\rawdata")
@@ -19,7 +18,6 @@ library("data.table")
 # means it is the root directory of our data.
 if (!file.exists("activity_labels.txt"))
   stop("Could not find activity_labels.txt file.\nPlease, set working directory to the root of the data folder!")
-
 # Load activity labels. We will need them to fullfil the following requirement:
 # 3. Uses descriptive activity names to name the activities in the data set
 a.labels <- fread("activity_labels.txt")
@@ -95,7 +93,7 @@ ReadFilesAndMerge <- function(data.set = "train") {
   # fread is a very fast data.table's file reader, but it chokes on this file.
   # Thus I have to use read.table and convert to data.table.
   # If you know how to read this file using fread, please tell me!
-  x <- read.table(sprintf("%s/X_%s.txt", data.set, data.set))
+  x <- read.table(sprintf("%s/X_%s.txt", data.set, data.set), colClasses = c("numeric"))
   # convert to data.table to keep using the same syntax everywhere
   x <- as.data.table(x)
   
